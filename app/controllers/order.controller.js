@@ -33,6 +33,8 @@ exports.findOrder = (req, res) => {
 exports.addToCart = (req, res) => {
   const id = Number(req.params.id);
   const productCode = String(req.body.product);
+  // req.body.product product di body contoh:
+  // { "product": "123"}
 
   Order.updateOne(
     {
@@ -40,6 +42,30 @@ exports.addToCart = (req, res) => {
     },
     {
       $addToSet: {
+        cart_items: productCode,
+      },
+    }
+  )
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => {
+      res.status(409).send({
+        message: err.message,
+      });
+    });
+};
+
+exports.removeFromCart = (req, res) => {
+  const id = Number(req.params.id);
+  const productCode = String(req.params.product); //product di params (:product) jika req.params.products maka :products
+
+  Order.updateOne(
+    {
+      user_id: id,
+    },
+    {
+      $pull: {
         cart_items: productCode,
       },
     }
