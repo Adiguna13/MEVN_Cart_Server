@@ -1,6 +1,7 @@
 const express = require("express");
 // const cors = require("cors");
 const app = express();
+const path = require("path");
 const PORT = process.env.PORT || 8000;
 
 // let corsOptions = {
@@ -13,6 +14,8 @@ const PORT = process.env.PORT || 8000;
 //request bertipe json
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use("/img", express.static(path.join(__dirname, "./public/img")));
 
 const db = require("./app/models");
 db.mongoose
