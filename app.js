@@ -1,15 +1,15 @@
 const express = require("express");
-// const cors = require("cors");
+const cors = require("cors");
 const app = express();
 const path = require("path");
 const PORT = process.env.PORT || 8000;
 
-// let corsOptions = {
-//   origin: "http://localhost:8080",
-// };
+let corsOptions = {
+  origin: "http://localhost:8080",
+};
 
 // enable cors
-// app.use(cors(corsOptions));
+app.use(cors(corsOptions));
 
 //request bertipe json
 app.use(express.json());
